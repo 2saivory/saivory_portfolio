@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<title>HOLLOW HOUR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,300..500&family=JetBrains+Mono:wght@400&family=Noto+Sans+KR:wght@300;400&display=swap">
+<style>
+/* Layout: alternating void / bone bands like a gallery walk-through; wide display type, mono captions, one film frame. */
+:root {
+  --void: #111111;
+  --bone: #EDEAE4;
+  --concrete: #8C8C88;
+  --chrome: #C9CCD1;
+  --ink-soft: #3A3A38;
+  --ink-mute: #5A5A57;
+  --line-dark: #2A2A28;
+  --display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --body: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 64px);
+  --max: 1360px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--void); color: var(--bone); font-family: var(--body); font-weight: 300; font-size: 16px; line-height: 1.7; }
+img, video { max-width: 100%; display: block; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--chrome); outline-offset: 3px; }
+.wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
+.mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+.display { font-family: var(--display); font-stretch: 125%; font-weight: 300; letter-spacing: 0.02em; text-wrap: balance; }
+
+/* header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--void) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line-dark); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 16px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.wm { display: inline-flex; align-items: center; gap: 0.04em; font-family: var(--display); font-stretch: 125%; font-weight: 300; font-size: 20px; line-height: 1; }
+.wm svg { width: 0.72em; height: 0.72em; flex-shrink: 0; }
+.wm .sp { width: 0.36em; }
+footer .wm { font-size: 24px; }
+.wm.wm-inline { font-size: 1.05em; vertical-align: -0.08em; margin-right: 0.15em; color: var(--chrome); }
+.about h2.about-wm { margin: 0 0 28px; line-height: 1; }
+.about-wm .wm { font-size: clamp(28px, 3.6vw, 48px); }
+.nav { display: flex; gap: clamp(14px, 2.4vw, 32px); flex-wrap: wrap; }
+.nav a { text-decoration: none; color: var(--chrome); padding-block: 6px; }
+.nav a:hover { color: var(--bone); }
+.nav a.shop { color: var(--bone); border-bottom: 1px solid currentColor; }
+
+/* main visual */
+.main-visual { position: relative; height: max(560px, calc(100svh - 58px)); overflow: hidden; background: #000; }
+.mv-panels { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 4px; }
+.mv-panels img, .mv-panels video { width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.mv-side { filter: grayscale(0.15) brightness(0.82); }
+.mv-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 18px; padding: 0 var(--gutter) 48px; text-align: center; background: linear-gradient(to top, rgba(17,17,17,0.82), rgba(17,17,17,0) 45%); }
+.mv-eyebrow { margin: 0; color: var(--chrome); }
+.mv-wm { font-size: clamp(34px, 6.4vw, 104px); color: var(--bone); }
+.mv-copy { margin: 0; font-family: var(--display); font-stretch: 125%; font-weight: 300; font-size: clamp(14px, 1.4vw, 20px); letter-spacing: 0.08em; text-transform: uppercase; color: var(--chrome); }
+.mv-scroll { margin-top: 18px; text-decoration: none; color: var(--concrete); padding: 8px 0; }
+.mv-scroll:hover { color: var(--bone); }
+@media (max-width: 700px) {
+  .mv-panels { grid-template-columns: minmax(0, 1fr); }
+  .mv-side { display: none; }
+}
+
+/* hero */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: end; padding-block: clamp(56px, 9vw, 120px); }
+.hero h1 { margin: 0; font-size: clamp(40px, 6.4vw, 92px); line-height: 1.02; }
+.hero .lede { margin: 28px 0 0; max-width: 34em; color: var(--chrome); font-size: 17px; }
+.hero .cta { display: flex; gap: 28px; margin-top: 40px; flex-wrap: wrap; }
+.btn { display: inline-block; text-decoration: none; font-family: var(--mono); font-size: 13px; letter-spacing: 0.2em; padding: 14px 0; border-bottom: 1px solid currentColor; }
+.btn.quiet { color: var(--concrete); }
+.film-frame { position: relative; justify-self: end; width: min(100%, 380px); aspect-ratio: 9 / 16; background: #000; }
+.film-frame video { width: 100%; height: 100%; object-fit: cover; }
+.film-frame .tag { position: absolute; left: 14px; bottom: 12px; color: var(--bone); }
+
+/* bands */
+.band { padding-block: clamp(72px, 10vw, 140px); }
+.band.bone { background: var(--bone); color: var(--void); }
+.head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; border-bottom: 1px solid currentColor; padding-bottom: 20px; margin-bottom: clamp(32px, 5vw, 56px); }
+.head h2 { margin: 0; font-size: clamp(28px, 3.6vw, 48px); line-height: 1.1; }
+.head p { margin: 0; max-width: 32em; color: var(--ink-mute); }
+.band:not(.bone) .head { border-color: var(--line-dark); }
+.band:not(.bone) .head p { color: var(--concrete); }
+
+/* collection */
+.products { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px); }
+.product { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.product .shot { aspect-ratio: 1 / 1; overflow: hidden; background: #E8E5DE; }
+.product .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease; }
+.product:hover .shot img { transform: scale(1.03); }
+@media (prefers-reduced-motion: reduce) { .product .shot img { transition: none; } .product:hover .shot img { transform: none; } }
+.product .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.product h3 { margin: 0; font-size: 28px; }
+.product .meta { color: var(--ink-mute); font-size: 15px; }
+.price { font-family: var(--mono); font-size: 14px; letter-spacing: 0.08em; font-variant-numeric: tabular-nums; }
+.specs { list-style: none; margin: 0; padding: 0; border-top: 1px solid #C9CCD1; font-size: 14px; }
+.specs li { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid #C9CCD1; }
+.specs li span:first-child { width: 110px; flex-shrink: 0; color: var(--ink-mute); }
+
+/* design points */
+.points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.point { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.point img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; background: #E8E5DE; }
+.point h3 { margin: 0; font-size: 18px; }
+.point p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+
+/* campaign */
+.gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.gallery figure { margin: 0; position: relative; min-width: 0; }
+.gallery img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.gallery figure.wide { grid-column: span 2; grid-row: span 2; }
+.gallery figure.wide img { height: 100%; }
+.gallery figcaption { position: absolute; left: 10px; bottom: 8px; color: var(--bone); font-size: 10px; }
+
+/* about */
+.about .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.about .symbol { color: var(--bone); justify-self: center; width: min(100%, 360px); }
+.about h2 { margin: 0 0 24px; font-size: clamp(28px, 3.6vw, 48px); line-height: 1.15; }
+.about p { margin: 0 0 18px; color: var(--chrome); max-width: 34em; }
+.palette { display: flex; gap: 8px; margin-top: 32px; flex-wrap: wrap; }
+.palette div { display: flex; flex-direction: column; gap: 8px; font-size: 10px; color: var(--concrete); }
+.palette i { width: 56px; height: 56px; border: 1px solid var(--line-dark); }
+
+/* product detail */
+.pdp-back { padding-block: 28px 0; }
+.pdp-back a { text-decoration: none; color: var(--concrete); }
+.pdp-back a:hover { color: var(--bone); }
+.pdp-top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; padding-block: 28px clamp(64px, 8vw, 112px); }
+.pdp-hero { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.pdp-info { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.pdp-eyebrow { margin: 0; color: var(--concrete); }
+.pdp-name { margin: 0; font-size: clamp(56px, 7vw, 112px); line-height: 0.95; }
+.pdp-color { margin: 0; color: var(--chrome); }
+.pdp-price { margin: 8px 0 0; font-family: var(--mono); font-size: 18px; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; }
+.pdp-copy { margin: 8px 0 0; color: var(--chrome); max-width: 34em; }
+.pdp-specs { margin-top: 12px; border-color: var(--line-dark); }
+.pdp-specs li { border-color: var(--line-dark); }
+.pdp-specs li span:first-child { color: var(--concrete); }
+.pdp-buy { display: block; margin-top: 18px; padding: 18px; text-align: center; text-decoration: none; background: var(--bone); color: var(--void); }
+.pdp-buy:hover { background: var(--chrome); }
+.pdp-band { background: var(--bone); color: var(--void); padding-block: clamp(72px, 10vw, 140px); }
+.pdp-band .point .mono { color: var(--ink-mute); }
+.pdp-styling { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.pdp-styling img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.pdp-next { margin-top: 48px; }
+@media (max-width: 900px) {
+  .pdp-top { grid-template-columns: minmax(0, 1fr); }
+  .pdp-info { position: static; }
+  .pdp-styling { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* brand guide popup */
+.nav-btn, .btn-reset, .link-reset { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; padding: 0; text-align: left; }
+.nav-btn { color: var(--chrome); padding-block: 6px; letter-spacing: inherit; text-transform: inherit; }
+.nav-btn:hover { color: var(--bone); }
+.btn-reset { font-family: var(--mono); font-size: 13px; letter-spacing: 0.2em; padding: 14px 0; border-bottom: 1px solid currentColor; }
+.link-reset { color: var(--chrome); }
+.link-reset:hover { color: var(--bone); }
+.guide { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px)); }
+.guide-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.78); }
+.guide-panel { position: relative; width: min(1240px, 100%); height: min(92vh, 100%); background: var(--void); border: 1px solid var(--line-dark); display: flex; flex-direction: column; min-height: 0; }
+.guide-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px clamp(16px, 3vw, 32px); border-bottom: 1px solid var(--line-dark); }
+.guide-eyebrow { margin: 0 0 6px; color: var(--concrete); }
+.guide-title { margin: 0; font-size: clamp(22px, 2.4vw, 32px); line-height: 1; }
+.guide-close { background: none; border: 1px solid var(--line-dark); color: var(--bone); padding: 12px 16px; cursor: pointer; }
+.guide-close:hover { border-color: var(--chrome); }
+.guide-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: clamp(20px, 3vw, 40px) clamp(16px, 3vw, 40px); }
+.pf-pages { display: flex; flex-direction: column; align-items: center; gap: 48px; }
+.pf-page { margin: 0; width: 100%; display: flex; flex-direction: column; gap: 12px; }
+.pf-page figcaption { display: flex; justify-content: space-between; gap: 16px; color: var(--concrete); }
+.pf-page img { width: 100%; height: auto; border: 1px solid var(--line-dark); }
+body.guide-open { overflow: hidden; }
+[hidden] { display: none !important; }
+
+/* footer */
+footer { border-top: 1px solid var(--line-dark); }
+footer .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr)); gap: 40px; padding-block: 64px; }
+footer h4 { margin: 0 0 14px; color: var(--concrete); font-weight: 400; }
+footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+footer a { text-decoration: none; color: var(--chrome); }
+footer a:hover { color: var(--bone); }
+.fine { color: var(--concrete); font-size: 13px; margin-top: 18px; max-width: 30em; }
+
+@media (max-width: 900px) {
+  .hero .wrap, .about .wrap { grid-template-columns: minmax(0, 1fr); }
+  .film-frame { justify-self: start; width: min(100%, 320px); }
+  .points { grid-template-columns: minmax(0, 1fr); }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .products { grid-template-columns: minmax(0, 1fr); }
+  .nav a:not(.shop) { display: none; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="HOLLOW HOUR home">
+      <span class="wm" role="img" aria-label="HOLLOW HOUR"><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>L</span><span>L</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>W</span><span class="sp"></span><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="238 32.2" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="5.5" fill="currentColor"></circle></svg><span>U</span><span>R</span></span>
+    </a>
+    <nav class="nav mono" aria-label="Main">
+      <a class="shop" href="#collection" data-link="shop">Shop</a>
+      <a href="#campaign">Campaign</a>
+      <a href="#about">About</a>
+      <button type="button" class="nav-btn" data-open-guide>Brand Guide</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div id="home">
+  <section class="main-visual" aria-label="HOLLOW HOUR Campaign 01">
+    <div class="mv-panels">
+      <img class="mv-side" src="img/c00.jpg" alt="Model 01 close-up wearing SLIT">
+      <video class="mv-film" src="img/film.mp4" poster="img/c16.jpg" autoplay muted loop playsinline aria-label="HOLLOW HOUR campaign film"></video>
+      <img class="mv-side" src="img/c15.jpg" alt="Model 02 close-up wearing ECHO">
+    </div>
+    <div class="mv-overlay">
+      <p class="mono mv-eyebrow">Campaign 01 — No.05 Slit &amp; No.06 Echo</p>
+      <span class="wm mv-wm" role="img" aria-label="HOLLOW HOUR"><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>L</span><span>L</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>W</span><span class="sp"></span><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="238 32.2" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="5.5" fill="currentColor"></circle></svg><span>U</span><span>R</span></span>
+      <p class="mv-copy">A strange object in an ordinary hour</p>
+      <a class="mono mv-scroll" href="#intro">Scroll ↓</a>
+    </div>
+  </section>
+
+  <section class="hero" id="intro">
+    <div class="wrap">
+      <div>
+        <p class="mono" style="margin:0 0 28px;color:var(--concrete)">New — No.05 Slit</p>
+        <h1 class="display">A strange object<br>in an ordinary hour</h1>
+        <p class="lede">평범한 시간에 불시착한 낯선 오브제. HOLLOW HOUR는 아이웨어를 작은 조각품처럼 다룹니다. 가늘게 열린 틈 하나, 시그니처 아이웨어 SLIT를 소개합니다.</p>
+        <div class="cta">
+          <a class="btn" href="#slit">SHOP NO.05 SLIT →</a>
+          <a class="btn quiet" href="#campaign">VIEW CAMPAIGN</a>
+          <button type="button" class="btn quiet btn-reset" data-open-guide>VIEW BRAND GUIDE</button>
+        </div>
+      </div>
+      <figure class="film-frame" style="margin:0">
+        <img src="img/c13.jpg" alt="Model 01 wearing NO.05 SLIT in front of the ring sculpture" style="width:100%;height:100%;object-fit:cover">
+        <figcaption class="tag mono">No.05 Slit — Chrome Silver</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band bone" id="collection">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="display">Collection 01</h2>
+        <p>브러시드 크롬과 스모크 그레이. 같은 소재, 다른 형태의 두 가지 아이웨어.</p>
+      </div>
+      <div class="products">
+        <article class="product">
+          <div class="shot"><img src="img/p_front.jpg" alt="NO.05 SLIT sunglasses, front view" loading="lazy"></div>
+          <div class="row">
+            <h3 class="display">No.05 Slit</h3>
+            <span class="price">₩270,000</span>
+          </div>
+          <span class="meta">Signature — Chrome Silver / Smoke Grey</span>
+          <ul class="specs">
+            <li><span>프레임</span><span>아몬드 메탈, 오픈 코너</span></li>
+            <li><span>렌즈</span><span>스모크 그레이 / UV 99.9% 차단</span></li>
+            <li><span>사이즈</span><span>렌즈 너비 56.6mm<br>브릿지 19mm<br>프레임 프론트 137.5mm<br>템플 길이 127.7mm<br>렌즈 높이 32.7mm</span></li>
+            <li><span>구성품</span><span>소프트 케이스, 클리너</span></li>
+          </ul>
+          <a class="btn" href="#slit" style="align-self:flex-start">VIEW PRODUCT →</a>
+        </article>
+        <article class="product">
+          <div class="shot"><img src="img/e_front.jpg" alt="NO.06 ECHO sunglasses, front view" loading="lazy"></div>
+          <div class="row">
+            <h3 class="display">No.06 Echo</h3>
+            <span class="price">Coming soon</span>
+          </div>
+          <span class="meta">Daily — Chrome Silver / Smoke Grey</span>
+          <ul class="specs">
+            <li><span>프레임</span><span>라운드 메탈, 더블브릿지</span></li>
+            <li><span>렌즈</span><span>스모크 그레이 / UV 99.9% 차단</span></li>
+            <li><span>사이즈</span><span>렌즈 너비 52.7mm<br>브릿지 20mm<br>프레임 프론트 141.3mm<br>템플 길이 150.3mm<br>렌즈 높이 31mm</span></li>
+            <li><span>디테일</span><span>템플 링 컷아웃</span></li>
+            <li><span>구성품</span><span>소프트 케이스, 클리너</span></li>
+          </ul>
+          <a class="btn" href="#echo" style="align-self:flex-start">VIEW PRODUCT →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="band" id="campaign">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="display">Campaign 01</h2>
+        <p>콘크리트 공간에 놓인 4m의 크롬 링. 두 인물과 두 개의 오브제가 설치물처럼 멈춰 선 시간.</p>
+      </div>
+      <div class="gallery">
+        <figure class="wide"><img src="img/c11.jpg" alt="Model 01 and model 02 standing side by side in front of the ring" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
+        <figure><img src="img/c00.jpg" alt="Model 01 close-up wearing SLIT" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
+        <figure><img src="img/c15.jpg" alt="Model 02 close-up wearing ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
+        <figure><img src="img/c14.jpg" alt="Model 01 side profile wearing SLIT" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
+        <figure><img src="img/c09.jpg" alt="Model 02 three-quarter view wearing ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
+        <figure><img src="img/c03.jpg" alt="Model 01 seated in front of the ring" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
+        <figure><img src="img/c07.jpg" alt="Model 01 in front, model 02 behind in profile" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
+        <figure><img src="img/c12.jpg" alt="Model 02 touching the temple of ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
+        <figure><img src="img/c05.jpg" alt="Pair facing each other in profile" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band about" id="about" style="padding-top:0">
+    <div class="wrap">
+      <svg class="symbol" viewBox="0 0 96 96" role="img" aria-label="HOLLOW HOUR symbol, a ring with an open gap"><circle cx="48" cy="48" r="40" fill="none" stroke="currentColor" stroke-width="8" stroke-dasharray="222 29.3" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="4" fill="currentColor"></circle></svg>
+      <div>
+        <p class="mono" style="margin:0 0 20px;color:var(--concrete)">About</p>
+        <h2 class="about-wm"><span class="wm" role="img" aria-label="HOLLOW HOUR"><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>L</span><span>L</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>W</span><span class="sp"></span><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="238 32.2" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="5.5" fill="currentColor"></circle></svg><span>U</span><span>R</span></span></h2>
+        <p>할로우 아워는 아이웨어를 패션 잡화가 아닌 작은 조각품으로 바라봅니다. 매장과 캠페인은 갤러리이자 설치미술 공간이고, 제품은 그 안에 놓인 작품입니다.</p>
+        <p>로고의 틈이 있는 링은 시계이자 렌즈입니다. 같은 형태가 캠페인의 조형물, 렌즈의 열린 모서리, 템플의 컷아웃으로 반복됩니다.</p>
+        <div class="palette mono" aria-label="Brand colors">
+          <div><i style="background:#EDEAE4"></i>Bone</div>
+          <div><i style="background:#8C8C88"></i>Concrete</div>
+          <div><i style="background:#111111"></i>Void</div>
+          <div><i style="background:#C9CCD1"></i>Chrome</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<article class="pdp" id="pdp-slit" hidden aria-label="NO.05 SLIT product detail">
+  <div class="wrap pdp-back"><a class="mono" href="#collection">← Collection</a></div>
+  <div class="wrap pdp-top">
+    <img class="pdp-hero" src="img/c00.jpg" alt="Model 01 wearing NO.05 SLIT, close-up">
+    <div class="pdp-info">
+      <p class="mono pdp-eyebrow">No.05 — Signature</p>
+      <h1 class="display pdp-name">Slit</h1>
+      <p class="pdp-color mono">Chrome Silver / Smoke Grey</p>
+      <p class="pdp-price">₩270,000</p>
+      <p class="pdp-copy">평범한 시간에 불시착한 낯선 오브제. SLIT는 가늘게 열린 틈 하나로 얼굴 위의 시선을 바꿉니다. 쓰는 순간, 일상이 조금 이상해집니다.</p>
+      <ul class="specs pdp-specs">
+        <li><span>프레임</span><span>아몬드 메탈, 오픈 코너</span></li>
+        <li><span>렌즈</span><span>스모크 그레이 렌즈 / UV 99.9% 차단 렌즈</span></li>
+        <li><span>사이즈</span><span>렌즈 너비 56.6mm<br>브릿지 19mm<br>프레임 프론트 137.5mm<br>템플 길이 127.7mm<br>렌즈 높이 32.7mm</span></li>
+        <li><span>구성품</span><span>소프트 케이스, 클리너</span></li>
+      </ul>
+      <a class="pdp-buy mono" href="#slit" data-link="shop">Buy Now</a>
+    </div>
+  </div>
+  <section class="pdp-band">
+    <div class="wrap">
+      <div class="head"><h2 class="display">Design point</h2><p>브랜드 심볼, 틈이 있는 링에서 출발한 세 가지 디테일.</p></div>
+      <div class="points">
+        <div class="point"><img src="img/p_fold.jpg" alt="SLIT folded, showing the almond lens shape" loading="lazy"><span class="mono">01 / Lens</span><h3 class="display">Asymmetric almond</h3><p>바깥쪽으로 길게 빠지는 비대칭 아몬드 렌즈가 눈매를 길고 날렵하게 이어 줍니다.</p></div>
+        <div class="point"><img src="img/p_3q.jpg" alt="SLIT three-quarter view showing the open corner" loading="lazy"><span class="mono">02 / Rim</span><h3 class="display">Open corner</h3><p>렌즈 바깥 모서리의 테를 끊어 낸 열린 구조. 브랜드 심볼의 틈을 프레임 위에 옮겼습니다.</p></div>
+        <div class="point"><img src="img/p_side.jpg" alt="SLIT side view showing the ring cut-out on the temple" loading="lazy"><span class="mono">03 / Temple</span><h3 class="display">Ring cut-out</h3><p>납작하고 넓은 메탈 템플에 링 모양 컷아웃 하나만 남겨, 옆모습에서도 브랜드가 읽힙니다.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <div class="head"><h2 class="display">Styling</h2><p>Model 01 / 착용 컬러 Chrome Silver</p></div>
+      <div class="pdp-styling">
+        <img src="img/c02.jpg" alt="Model touching the temple of SLIT" loading="lazy">
+        <img src="img/c14.jpg" alt="Model side profile wearing SLIT" loading="lazy">
+        <img src="img/c13.jpg" alt="Model three-quarter view wearing SLIT" loading="lazy">
+        <img src="img/c03.jpg" alt="Model seated wearing SLIT" loading="lazy">
+      </div>
+      <a class="btn pdp-next" href="#echo">Next — No.06 Echo →</a>
+    </div>
+  </section>
+</article>
+
+<article class="pdp" id="pdp-echo" hidden aria-label="NO.06 ECHO product detail">
+  <div class="wrap pdp-back"><a class="mono" href="#collection">← Collection</a></div>
+  <div class="wrap pdp-top">
+    <img class="pdp-hero" src="img/c15.jpg" alt="Model 02 wearing NO.06 ECHO, close-up">
+    <div class="pdp-info">
+      <p class="mono pdp-eyebrow">No.06 — Daily</p>
+      <h1 class="display pdp-name">Echo</h1>
+      <p class="pdp-color mono">Chrome Silver / Smoke Grey</p>
+      <p class="pdp-price">Coming soon</p>
+      <p class="pdp-copy">익숙한 라운드 위에 남긴 낯선 울림. ECHO는 SLIT와 같은 브러시드 크롬과 링 컷아웃을 나눠 가진, 매일 쓰는 데일리 라인입니다.</p>
+      <ul class="specs pdp-specs">
+        <li><span>프레임</span><span>라운드 메탈, 더블브릿지</span></li>
+        <li><span>렌즈</span><span>스모크 그레이 / UV 99.9% 차단</span></li>
+        <li><span>사이즈</span><span>렌즈 너비 52.7mm<br>브릿지 20mm<br>프레임 프론트 141.3mm<br>템플 길이 150.3mm<br>렌즈 높이 31mm</span></li>
+        <li><span>디테일</span><span>템플 링 컷아웃</span></li>
+        <li><span>구성품</span><span>소프트 케이스, 클리너</span></li>
+      </ul>
+      <a class="pdp-buy mono" href="#echo" data-link="echo_notify">Notify Me</a>
+    </div>
+  </div>
+  <section class="pdp-band">
+    <div class="wrap">
+      <div class="head"><h2 class="display">Design point</h2><p>클래식한 라운드 형태에 HOLLOW HOUR의 디테일을 더했습니다.</p></div>
+      <div class="points">
+        <div class="point"><img src="img/e_front.jpg" alt="ECHO front view showing the round lenses and double bridge" loading="lazy"><span class="mono">01 / Bridge</span><h3 class="display">Double bridge</h3><p>렌즈 위를 곧게 가로지르는 더블브릿지 바가 둥근 형태에 단단한 수평선을 더합니다.</p></div>
+        <div class="point"><img src="img/e_3q.jpg" alt="ECHO three-quarter view" loading="lazy"><span class="mono">02 / Frame</span><h3 class="display">Brushed round</h3><p>SLIT와 같은 브러시드 크롬 마감. 빛을 반사하지 않고 은은하게 머금는 표면입니다.</p></div>
+        <div class="point"><img src="img/e_side.jpg" alt="ECHO side view showing the ring cut-out on the temple" loading="lazy"><span class="mono">03 / Temple</span><h3 class="display">Ring cut-out</h3><p>힌지 옆의 작은 링 컷아웃. SLIT와 한 컬렉션임을 알려 주는 공통 디테일입니다.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <div class="head"><h2 class="display">Styling</h2><p>Model 02 / 착용 컬러 Chrome Silver</p></div>
+      <div class="pdp-styling">
+        <img src="img/c12.jpg" alt="Model 02 touching the temple of ECHO" loading="lazy">
+        <img src="img/c09.jpg" alt="Model 02 three-quarter view wearing ECHO" loading="lazy">
+        <img src="img/c06.jpg" alt="Model 02 seated wearing ECHO" loading="lazy">
+        <img src="img/c04.jpg" alt="Model 02 standing under the ring sculpture" loading="lazy">
+      </div>
+      <a class="btn pdp-next" href="#slit">Next — No.05 Slit →</a>
+    </div>
+  </section>
+</article>
+</main>
+
+<div class="guide" id="guide" role="dialog" aria-modal="true" aria-labelledby="guide-title" hidden>
+  <div class="guide-backdrop" data-close-guide></div>
+  <div class="guide-panel">
+    <div class="guide-bar">
+      <div>
+        <p class="mono guide-eyebrow">HOLLOW HOUR — 17 pages</p>
+        <h2 class="display guide-title" id="guide-title">Brand Guide</h2>
+      </div>
+      <button type="button" class="guide-close mono" data-close-guide aria-label="Close brand guide">Close ✕</button>
+    </div>
+    <div class="guide-scroll" tabindex="0">
+      <div class="pf-pages">
+      <figure class="pf-page" style="max-width:1600px"><figcaption class="mono"><span>01 / 17</span><span>Cover</span></figcaption><img src="pf/p01.jpg" alt="Portfolio page 1: Cover" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:960px"><figcaption class="mono"><span>02 / 17</span><span>Logo</span></figcaption><img src="pf/p02.jpg" alt="Portfolio page 2: Logo" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>03 / 17</span><span>Type &amp; Color</span></figcaption><img src="pf/p03.jpg" alt="Portfolio page 3: Type &amp; Color" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>04 / 17</span><span>Casting</span></figcaption><img src="pf/p04.jpg" alt="Portfolio page 4: Casting" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>05 / 17</span><span>Product</span></figcaption><img src="pf/p05.jpg" alt="Portfolio page 5: Product" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>06 / 17</span><span>Campaign — Model 01 × Slit</span></figcaption><img src="pf/p06.jpg" alt="Portfolio page 6: Campaign — Model 01 × Slit" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>07 / 17</span><span>Campaign — Model 02 × Echo</span></figcaption><img src="pf/p07.jpg" alt="Portfolio page 7: Campaign — Model 02 × Echo" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>08 / 17</span><span>Campaign — Pair</span></figcaption><img src="pf/p08.jpg" alt="Portfolio page 8: Campaign — Pair" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:860px"><figcaption class="mono"><span>09 / 17</span><span>Detail Page — No.05 Slit</span></figcaption><img src="pf/p09.jpg" alt="Portfolio page 9: Detail Page — No.05 Slit" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:860px"><figcaption class="mono"><span>10 / 17</span><span>Detail Page — No.06 Echo</span></figcaption><img src="pf/p10.jpg" alt="Portfolio page 10: Detail Page — No.06 Echo" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1600px"><figcaption class="mono"><span>11 / 17</span><span>Main Banner — PC</span></figcaption><img src="pf/p11.jpg" alt="Portfolio page 11: Main Banner — PC" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:750px"><figcaption class="mono"><span>12 / 17</span><span>Main Banner — Mobile</span></figcaption><img src="pf/p12.jpg" alt="Portfolio page 12: Main Banner — Mobile" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>13 / 17</span><span>SNS 01 — Teaser</span></figcaption><img src="pf/p13.jpg" alt="Portfolio page 13: SNS 01 — Teaser" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>14 / 17</span><span>SNS 02 — Detail</span></figcaption><img src="pf/p14.jpg" alt="Portfolio page 14: SNS 02 — Detail" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>15 / 17</span><span>SNS 03 — Model</span></figcaption><img src="pf/p15.jpg" alt="Portfolio page 15: SNS 03 — Model" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>16 / 17</span><span>SNS 04 — Pair</span></figcaption><img src="pf/p16.jpg" alt="Portfolio page 16: SNS 04 — Pair" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1600px"><figcaption class="mono"><span>17 / 17</span><span>AI Workflow</span></figcaption><img src="pf/p17.jpg" alt="Portfolio page 17: AI Workflow" loading="lazy"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="wm" role="img" aria-label="HOLLOW HOUR"><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>L</span><span>L</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>W</span><span class="sp"></span><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="238 32.2" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="5.5" fill="currentColor"></circle></svg><span>U</span><span>R</span></span>
+      </a>
+      <p class="fine"><span class="wm wm-inline" role="img" aria-label="HOLLOW HOUR"><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>L</span><span>L</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>W</span><span class="sp"></span><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="238 32.2" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="5.5" fill="currentColor"></circle></svg><span>U</span><span>R</span></span>는 AI 브랜딩 포트폴리오를 위해 만든 가상 브랜드입니다. 모델, 제품, 캠페인 이미지와 영상은 모두 AI로 생성했습니다.<br>Concept &amp; Design — 이상아</p>
+    </div>
+    <div>
+      <h4 class="mono">Shop</h4>
+      <ul>
+        <li><a href="#slit">No.05 Slit</a></li>
+        <li><a href="#echo">No.06 Echo</a></li>
+        <li><a href="#campaign">Campaign 01</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="mono">Links</h4>
+      <ul>
+        <li><button type="button" class="link-reset" data-open-guide>Brand Guide</button></li>
+        <li data-wrap="instagram"><a href="#" data-link="instagram">Instagram</a></li>
+        <li data-wrap="contact"><a href="#" data-link="contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* 링크 설정: 아래 주소만 바꾸면 사이트 전체의 버튼과 링크가 함께 바뀝니다. 비워 두면 Links 항목은 숨겨집니다. */
+const LINKS = {
+  shop: '',
+  echo_notify: '',
+  instagram: '',
+  contact: ''
+};
+document.querySelectorAll('[data-link]').forEach(function (a) {
+  var url = LINKS[a.dataset.link];
+  if (url) { a.href = url; if (/^https?:/.test(url)) { a.target = '_blank'; a.rel = 'noopener'; } }
+});
+document.querySelectorAll('[data-wrap]').forEach(function (li) {
+  if (!LINKS[li.dataset.wrap]) li.hidden = true;
+});
+document.querySelectorAll('footer ul').forEach(function (ul) {
+  if (!ul.querySelector('li:not([hidden])')) ul.parentElement.hidden = true;
+});
+
+/* 상세페이지 전환: #slit, #echo 주소일 때 해당 상세페이지만 보여 줍니다. */
+var home = document.getElementById('home');
+var pdps = { slit: document.getElementById('pdp-slit'), echo: document.getElementById('pdp-echo') };
+function route() {
+  var key = location.hash.replace('#', '');
+  var pdp = pdps[key];
+  home.hidden = !!pdp;
+  Object.keys(pdps).forEach(function (k) { pdps[k].hidden = k !== key; });
+  if (pdp) {
+    window.scrollTo(0, 0);
+  } else if (key) {
+    var target = document.getElementById(key);
+    if (target) target.scrollIntoView();
+  }
+}
+window.addEventListener('hashchange', route);
+
+/* 브랜드 가이드 팝업 */
+var guide = document.getElementById('guide');
+var lastFocus = null;
+function openGuide() {
+  lastFocus = document.activeElement;
+  guide.hidden = false;
+  document.body.classList.add('guide-open');
+  guide.querySelector('.guide-scroll').scrollTop = 0;
+  guide.querySelector('.guide-close').focus();
+}
+function closeGuide() {
+  guide.hidden = true;
+  document.body.classList.remove('guide-open');
+  if (lastFocus) lastFocus.focus();
+}
+document.querySelectorAll('[data-open-guide]').forEach(function (b) { b.addEventListener('click', openGuide); });
+document.querySelectorAll('[data-close-guide]').forEach(function (b) { b.addEventListener('click', closeGuide); });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !guide.hidden) closeGuide(); });
+route();
+</script>
+
+</body>
+</html>
