@@ -2,10 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="HOLLOW HOUR — AI로 만든 가상 아이웨어 브랜드 사이트 (Concept & Design 이상아)">
 </head>
 <body>
 <title>HOLLOW HOUR</title>
+<script>document.documentElement.lang = 'ko';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,300..500&family=JetBrains+Mono:wght@400&family=Noto+Sans+KR:wght@300;400&display=swap">
@@ -24,6 +26,8 @@
   --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   --gutter: clamp(16px, 4vw, 64px);
   --max: 1360px;
+  --acid: #C8F03C;
+  --ease: cubic-bezier(.16, .84, .24, 1);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -39,7 +43,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--chrome); outlin
 
 /* header */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--void) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line-dark); }
-.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 16px; flex-wrap: wrap; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 4px 24px; padding-block: 8px; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .wm { display: inline-flex; align-items: center; gap: 0.04em; font-family: var(--display); font-stretch: 125%; font-weight: 300; font-size: 20px; line-height: 1; }
 .wm svg { width: 0.72em; height: 0.72em; flex-shrink: 0; }
@@ -49,7 +53,7 @@ footer .wm { font-size: 24px; }
 .about h2.about-wm { margin: 0 0 28px; line-height: 1; }
 .about-wm .wm { font-size: clamp(28px, 3.6vw, 48px); }
 .nav { display: flex; gap: clamp(14px, 2.4vw, 32px); flex-wrap: wrap; }
-.nav a { text-decoration: none; color: var(--chrome); padding-block: 6px; }
+.nav a { text-decoration: none; color: var(--chrome); padding-block: 14px; }
 .nav a:hover { color: var(--bone); }
 .nav a.shop { color: var(--bone); border-bottom: 1px solid currentColor; }
 
@@ -58,20 +62,26 @@ footer .wm { font-size: 24px; }
 .mv-panels { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 4px; }
 .mv-panels img, .mv-panels video { width: 100%; height: 100%; object-fit: cover; max-width: none; }
 .mv-side { filter: grayscale(0.15) brightness(0.82); }
-.mv-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 18px; padding: 0 var(--gutter) 48px; text-align: center; background: linear-gradient(to top, rgba(17,17,17,0.82), rgba(17,17,17,0) 45%); }
-.mv-eyebrow { margin: 0; color: var(--chrome); }
+.mv-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 18px; padding: 0 var(--gutter) 48px; text-align: center; background: linear-gradient(to top, rgba(17,17,17,0.94) 0%, rgba(17,17,17,0.78) 36%, rgba(17,17,17,0) 70%); }
+.mv-eyebrow { margin: 0; color: var(--chrome); text-shadow: 0 1px 12px rgba(0,0,0,.55); }
 .mv-wm { font-size: clamp(34px, 6.4vw, 104px); color: var(--bone); }
 .mv-copy { margin: 0; font-family: var(--display); font-stretch: 125%; font-weight: 300; font-size: clamp(14px, 1.4vw, 20px); letter-spacing: 0.08em; text-transform: uppercase; color: var(--chrome); }
-.mv-scroll { margin-top: 18px; text-decoration: none; color: var(--concrete); padding: 8px 0; }
+.mv-scroll { margin-top: 18px; text-decoration: none; color: var(--chrome); padding: 12px 0; }
 .mv-scroll:hover { color: var(--bone); }
+.mv-toggle { position: absolute; right: var(--gutter); bottom: 40px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid rgba(201,204,209,.5); border-radius: 50%; background: rgba(17,17,17,.45); color: var(--bone); cursor: pointer; backdrop-filter: blur(4px); }
+.mv-toggle:hover { border-color: var(--bone); }
+.mv-toggle svg { width: 14px; height: 14px; }
 @media (max-width: 700px) {
+  .mv-toggle { bottom: 24px; }
   .mv-panels { grid-template-columns: minmax(0, 1fr); }
   .mv-side { display: none; }
 }
 
 /* hero */
 .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: end; padding-block: clamp(56px, 9vw, 120px); }
-.hero h1 { margin: 0; font-size: clamp(40px, 6.4vw, 92px); line-height: 1.02; }
+.hero h1 { margin: 0; font-size: clamp(34px, 4.6vw, 68px); line-height: 1.04; text-wrap: initial; }
+.hero h1 .ln { display: block; white-space: nowrap; }
+@media (max-width: 520px) { .hero h1 .ln { white-space: normal; } }
 .hero .lede { margin: 28px 0 0; max-width: 34em; color: var(--chrome); font-size: 17px; }
 .hero .cta { display: flex; gap: 28px; margin-top: 40px; flex-wrap: wrap; }
 .btn { display: inline-block; text-decoration: none; font-family: var(--mono); font-size: 13px; letter-spacing: 0.2em; padding: 14px 0; border-bottom: 1px solid currentColor; }
@@ -117,7 +127,7 @@ footer .wm { font-size: 24px; }
 .gallery img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
 .gallery figure.wide { grid-column: span 2; grid-row: span 2; }
 .gallery figure.wide img { height: 100%; }
-.gallery figcaption { position: absolute; left: 10px; bottom: 8px; color: var(--bone); font-size: 10px; }
+.gallery figcaption { position: absolute; left: 10px; bottom: 8px; color: var(--bone); font-size: 12px; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
 
 /* about */
 .about .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
@@ -125,12 +135,12 @@ footer .wm { font-size: 24px; }
 .about h2 { margin: 0 0 24px; font-size: clamp(28px, 3.6vw, 48px); line-height: 1.15; }
 .about p { margin: 0 0 18px; color: var(--chrome); max-width: 34em; }
 .palette { display: flex; gap: 8px; margin-top: 32px; flex-wrap: wrap; }
-.palette div { display: flex; flex-direction: column; gap: 8px; font-size: 10px; color: var(--concrete); }
+.palette div { display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: .12em; color: var(--concrete); }
 .palette i { width: 56px; height: 56px; border: 1px solid var(--line-dark); }
 
 /* product detail */
 .pdp-back { padding-block: 28px 0; }
-.pdp-back a { text-decoration: none; color: var(--concrete); }
+.pdp-back a { display: inline-block; padding-block: 14px; text-decoration: none; color: var(--concrete); }
 .pdp-back a:hover { color: var(--bone); }
 .pdp-top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; padding-block: 28px clamp(64px, 8vw, 112px); }
 .pdp-hero { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
@@ -145,6 +155,9 @@ footer .wm { font-size: 24px; }
 .pdp-specs li span:first-child { color: var(--concrete); }
 .pdp-buy { display: block; margin-top: 18px; padding: 18px; text-align: center; text-decoration: none; background: var(--bone); color: var(--void); }
 .pdp-buy:hover { background: var(--chrome); }
+.pdp-buy.is-concept, .motion .pdp-buy.is-concept { background: none; color: var(--chrome); border: 1px solid var(--line-dark); cursor: default; }
+.pdp-buy.is-concept::after { display: none; }
+.concept-note { margin: 10px 0 0; font-size: 13px; color: var(--concrete); }
 .pdp-band { background: var(--bone); color: var(--void); padding-block: clamp(72px, 10vw, 140px); }
 .pdp-band .point .mono { color: var(--ink-mute); }
 .pdp-styling { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
@@ -156,9 +169,58 @@ footer .wm { font-size: 24px; }
   .pdp-styling { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+/* product detail long-form (상세페이지): an 860px column, bands run full width */
+.pdp-hero-product { aspect-ratio: 1 / 1; background: #E8E5DE; }
+.dtl { border-top: 1px solid var(--line-dark); }
+.dtl-col { max-width: 860px; margin-inline: auto; }
+.dtl-pad { padding-inline: max(16px, min(72px, 8vw)); }
+.dtl-bone { background: var(--bone); color: var(--void); }
+.dtl-media { overflow: hidden; }
+.dtl-media img { width: 100%; height: 100%; object-fit: cover; display: block; max-width: none; }
+.dtl-hero .dtl-col { position: relative; }
+.dtl-hero .dtl-media { aspect-ratio: 860 / 1147; max-width: 100%; }
+.dtl-hero-cap { position: absolute; left: 0; right: 0; bottom: clamp(24px, 6vw, 56px); display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; color: var(--bone); }
+.dtl-hero-name { display: flex; flex-direction: column; gap: 8px; }
+.dtl-name { margin: 0; font-size: clamp(48px, 10vw, 88px); line-height: 1; text-transform: uppercase; }
+.dtl-intro { padding-block: clamp(80px, 12vw, 120px); display: flex; flex-direction: column; align-items: center; gap: 36px; text-align: center; }
+.dtl-intro h2 { margin: 0; font-size: clamp(20px, 3vw, 26px); line-height: 1.5; letter-spacing: 0.04em; text-transform: uppercase; }
+.dtl-intro p { margin: 0; max-width: 34em; font-size: 17px; line-height: 2; color: var(--chrome); }
+.dtl-front { padding-block: clamp(72px, 10vw, 96px) clamp(56px, 8vw, 80px); }
+.dtl-front-head { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 24px; text-align: center; }
+.dtl-sub { color: var(--ink-mute); }
+.dtl-front .dtl-media { aspect-ratio: 860 / 560; max-width: 100%; background: #E8E5DE; }
+.dtl-points { padding-block: 40px clamp(80px, 12vw, 120px); }
+.dtl-points .dtl-col { display: flex; flex-direction: column; gap: clamp(56px, 9vw, 80px); }
+.dtl-sec-head { display: flex; flex-direction: column; gap: 12px; }
+.dtl-sec-head p { margin: 0; font-size: 15px; color: var(--ink-mute); }
+.dtl-points .dtl-sec-head { border-top: 1px solid currentColor; padding-top: 48px; }
+.dtl-point { display: flex; flex-direction: column; gap: 28px; }
+.dtl-point .dtl-media { aspect-ratio: 860 / 400; max-width: 100%; background: #E8E5DE; }
+.dtl-point-row { display: flex; gap: clamp(16px, 4vw, 32px); }
+.dtl-point-row > div { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.dtl-num { width: 40px; flex-shrink: 0; padding-top: 3px; }
+.dtl-point h3 { margin: 0; font-size: 18px; letter-spacing: 0.04em; text-transform: uppercase; }
+.dtl-point p { margin: 0; font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
+.dtl-styling { padding-block: clamp(80px, 12vw, 120px); }
+.dtl-styling .dtl-col { display: flex; flex-direction: column; gap: 48px; }
+.dtl-styling .dtl-sec-head p { color: var(--concrete); }
+.dtl-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.dtl-grid .dtl-media { aspect-ratio: 3 / 4; max-width: 100%; }
+.dtl-info { padding-block: clamp(72px, 10vw, 100px); }
+.dtl-info .dtl-col { display: flex; flex-direction: column; gap: 32px; }
+.dtl-table { border-top: 1px solid var(--void); font-size: 15px; }
+.dtl-row { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--chrome); }
+.dtl-row span:first-child { width: clamp(88px, 20vw, 180px); flex-shrink: 0; color: var(--ink-mute); }
+.dtl-row span:last-child { min-width: 0; }
+.dtl-end .dtl-media { aspect-ratio: 860 / 700; max-width: 100%; }
+.dtl-sign { display: flex; flex-direction: column; align-items: center; gap: 18px; padding-block: 64px 24px; }
+.dtl-sign .wm { font-size: 28px; }
+.dtl-ko { font-size: 13px; letter-spacing: 0.6em; color: var(--concrete); }
+.dtl-next { display: flex; justify-content: center; padding-block: 24px clamp(72px, 10vw, 112px); }
+
 /* brand guide popup */
 .nav-btn, .btn-reset, .link-reset { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; padding: 0; text-align: left; }
-.nav-btn { color: var(--chrome); padding-block: 6px; letter-spacing: inherit; text-transform: inherit; }
+.nav-btn { color: var(--chrome); padding-block: 14px; letter-spacing: inherit; text-transform: inherit; }
 .nav-btn:hover { color: var(--bone); }
 .btn-reset { font-family: var(--mono); font-size: 13px; letter-spacing: 0.2em; padding: 14px 0; border-bottom: 1px solid currentColor; }
 .link-reset { color: var(--chrome); }
@@ -182,8 +244,11 @@ body.guide-open { overflow: hidden; }
 /* footer */
 footer { border-top: 1px solid var(--line-dark); }
 footer .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr)); gap: 40px; padding-block: 64px; }
-footer h4 { margin: 0 0 14px; color: var(--concrete); font-weight: 400; }
-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+footer h3 { margin: 0 0 4px; font-size: 12px; color: var(--concrete); font-weight: 400; }
+footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+footer ul a, footer ul button { display: inline-block; padding-block: 11px; }
+footer ul .link-reset { padding-block: 11px; }
+.brand { padding-block: 10px; }
 footer a { text-decoration: none; color: var(--chrome); }
 footer a:hover { color: var(--bone); }
 .fine { color: var(--concrete); font-size: 13px; margin-top: 18px; max-width: 30em; }
@@ -197,9 +262,30 @@ footer a:hover { color: var(--bone); }
 }
 @media (max-width: 600px) {
   .products { grid-template-columns: minmax(0, 1fr); }
-  .nav a:not(.shop) { display: none; }
+  .top .wrap { padding-block: 6px 0; }
+  .nav { width: 100%; justify-content: space-between; gap: 8px; }
+  .main-visual { height: max(520px, calc(100svh - 100px)); }
 }
 </style>
+
+<div class="intro" id="introSeq" aria-hidden="true">
+  <div class="intro-inner">
+    <svg class="intro-sym" viewBox="0 0 96 96"><circle class="arc" cx="48" cy="48" r="40" transform="rotate(-50 48 48)"></circle><circle class="dot" cx="48" cy="48" r="5" fill="currentColor"></circle></svg>
+    <div class="intro-wm-slot"></div>
+    <div class="intro-meta mono"><span>Campaign 01</span><span class="intro-count">000</span></div>
+    <div class="intro-bar"><i></i></div>
+  </div>
+</div>
+<script>
+(function () {
+  var d = document.documentElement, el = document.getElementById('introSeq'), seen = false;
+  try { seen = sessionStorage.getItem('hh-intro') === '1'; } catch (e) {}
+  if (seen || location.hash.replace('#', '') || matchMedia('(prefers-reduced-motion: reduce)').matches) { el.remove(); return; }
+  d.classList.add('intro-lock');
+  setTimeout(function () { d.classList.remove('intro-lock'); if (el.isConnected && !el.classList.contains('go')) el.remove(); }, 4500);
+})();
+</script>
+<div class="scroll-progress" aria-hidden="true"></div>
 
 <header class="top">
   <div class="wrap">
@@ -219,9 +305,9 @@ footer a:hover { color: var(--bone); }
 <div id="home">
   <section class="main-visual" aria-label="HOLLOW HOUR Campaign 01">
     <div class="mv-panels">
-      <img class="mv-side" src="img/c00.jpg" alt="Model 01 close-up wearing SLIT">
-      <video class="mv-film" src="img/film.mp4" poster="img/c16.jpg" autoplay muted loop playsinline aria-label="HOLLOW HOUR campaign film"></video>
-      <img class="mv-side" src="img/c15.jpg" alt="Model 02 close-up wearing ECHO">
+      <img class="mv-side" src="img/c00.jpg?v=2" alt="Model 01 close-up wearing SLIT">
+      <video class="mv-film" src="img/film.mp4?v=2" poster="img/c16.jpg?v=2" autoplay muted loop playsinline aria-label="HOLLOW HOUR campaign film"></video>
+      <img class="mv-side" src="img/c15.jpg?v=3" alt="Model 02 close-up wearing ECHO">
     </div>
     <div class="mv-overlay">
       <p class="mono mv-eyebrow">Campaign 01 — No.05 Slit &amp; No.06 Echo</p>
@@ -229,13 +315,14 @@ footer a:hover { color: var(--bone); }
       <p class="mv-copy">A strange object in an ordinary hour</p>
       <a class="mono mv-scroll" href="#intro">Scroll ↓</a>
     </div>
+    <button type="button" class="mv-toggle" aria-pressed="false" aria-label="캠페인 영상 일시정지" title="캠페인 영상 일시정지"><svg viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" fill="currentColor"/></svg></button>
   </section>
 
   <section class="hero" id="intro">
     <div class="wrap">
       <div>
         <p class="mono" style="margin:0 0 28px;color:var(--concrete)">New — No.05 Slit</p>
-        <h1 class="display">A strange object<br>in an ordinary hour</h1>
+        <h1 class="display"><span class="ln">A strange object</span> <span class="ln">in an ordinary hour</span></h1>
         <p class="lede">평범한 시간에 불시착한 낯선 오브제. HOLLOW HOUR는 아이웨어를 작은 조각품처럼 다룹니다. 가늘게 열린 틈 하나, 시그니처 아이웨어 SLIT를 소개합니다.</p>
         <div class="cta">
           <a class="btn" href="#slit">SHOP NO.05 SLIT →</a>
@@ -244,7 +331,7 @@ footer a:hover { color: var(--bone); }
         </div>
       </div>
       <figure class="film-frame" style="margin:0">
-        <img src="img/c13.jpg" alt="Model 01 wearing NO.05 SLIT in front of the ring sculpture" style="width:100%;height:100%;object-fit:cover">
+        <img src="img/c13.jpg?v=2" alt="Model 01 wearing NO.05 SLIT in front of the ring sculpture" style="width:100%;height:100%;object-fit:cover">
         <figcaption class="tag mono">No.05 Slit — Chrome Silver</figcaption>
       </figure>
     </div>
@@ -258,7 +345,7 @@ footer a:hover { color: var(--bone); }
       </div>
       <div class="products">
         <article class="product">
-          <div class="shot"><img src="img/p_front.jpg" alt="NO.05 SLIT sunglasses, front view" loading="lazy"></div>
+          <div class="shot"><img src="img/p_fold.jpg" alt="NO.05 SLIT sunglasses, front view" loading="lazy"></div>
           <div class="row">
             <h3 class="display">No.05 Slit</h3>
             <span class="price">₩270,000</span>
@@ -273,7 +360,7 @@ footer a:hover { color: var(--bone); }
           <a class="btn" href="#slit" style="align-self:flex-start">VIEW PRODUCT →</a>
         </article>
         <article class="product">
-          <div class="shot"><img src="img/e_front.jpg" alt="NO.06 ECHO sunglasses, front view" loading="lazy"></div>
+          <div class="shot"><img src="img/e_front.jpg?v=2" alt="NO.06 ECHO sunglasses, front view" loading="lazy"></div>
           <div class="row">
             <h3 class="display">No.06 Echo</h3>
             <span class="price">Coming soon</span>
@@ -300,15 +387,15 @@ footer a:hover { color: var(--bone); }
         <p>콘크리트 공간에 놓인 4m의 크롬 링. 두 인물과 두 개의 오브제가 설치물처럼 멈춰 선 시간.</p>
       </div>
       <div class="gallery">
-        <figure class="wide"><img src="img/c11.jpg" alt="Model 01 and model 02 standing side by side in front of the ring" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
-        <figure><img src="img/c00.jpg" alt="Model 01 close-up wearing SLIT" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
-        <figure><img src="img/c15.jpg" alt="Model 02 close-up wearing ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
-        <figure><img src="img/c14.jpg" alt="Model 01 side profile wearing SLIT" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
-        <figure><img src="img/c09.jpg" alt="Model 02 three-quarter view wearing ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
-        <figure><img src="img/c03.jpg" alt="Model 01 seated in front of the ring" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
-        <figure><img src="img/c07.jpg" alt="Model 01 in front, model 02 behind in profile" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
-        <figure><img src="img/c12.jpg" alt="Model 02 touching the temple of ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
-        <figure><img src="img/c05.jpg" alt="Pair facing each other in profile" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
+        <figure class="wide"><img src="img/c11.jpg?v=2" alt="Model 01 and model 02 standing side by side in front of the ring" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
+        <figure><img src="img/c00.jpg?v=2" alt="Model 01 close-up wearing SLIT" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
+        <figure><img src="img/c15.jpg?v=3" alt="Model 02 close-up wearing ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
+        <figure><img src="img/c14.jpg?v=2" alt="Model 01 side profile wearing SLIT" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
+        <figure><img src="img/c09.jpg?v=2" alt="Model 02 three-quarter view wearing ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
+        <figure><img src="img/c03.jpg?v=2" alt="Model 01 seated in front of the ring" loading="lazy"><figcaption class="mono">Slit</figcaption></figure>
+        <figure><img src="img/c07.jpg?v=3" alt="Model 01 in front, model 02 behind in profile" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
+        <figure><img src="img/c12.jpg?v=2" alt="Model 02 touching the temple of ECHO" loading="lazy"><figcaption class="mono">Echo</figcaption></figure>
+        <figure><img src="img/c05.jpg?v=2" alt="Pair facing each other in profile" loading="lazy"><figcaption class="mono">Slit &amp; Echo</figcaption></figure>
       </div>
     </div>
   </section>
@@ -335,7 +422,7 @@ footer a:hover { color: var(--bone); }
 <article class="pdp" id="pdp-slit" hidden aria-label="NO.05 SLIT product detail">
   <div class="wrap pdp-back"><a class="mono" href="#collection">← Collection</a></div>
   <div class="wrap pdp-top">
-    <img class="pdp-hero" src="img/c00.jpg" alt="Model 01 wearing NO.05 SLIT, close-up">
+    <img class="pdp-hero pdp-hero-product" src="img/p_3q.jpg" alt="NO.05 SLIT three-quarter view">
     <div class="pdp-info">
       <p class="mono pdp-eyebrow">No.05 — Signature</p>
       <h1 class="display pdp-name">Slit</h1>
@@ -351,34 +438,91 @@ footer a:hover { color: var(--bone); }
       <a class="pdp-buy mono" href="#slit" data-link="shop">Buy Now</a>
     </div>
   </div>
-  <section class="pdp-band">
-    <div class="wrap">
-      <div class="head"><h2 class="display">Design point</h2><p>브랜드 심볼, 틈이 있는 링에서 출발한 세 가지 디테일.</p></div>
-      <div class="points">
-        <div class="point"><img src="img/p_fold.jpg" alt="SLIT folded, showing the almond lens shape" loading="lazy"><span class="mono">01 / Lens</span><h3 class="display">Asymmetric almond</h3><p>바깥쪽으로 길게 빠지는 비대칭 아몬드 렌즈가 눈매를 길고 날렵하게 이어 줍니다.</p></div>
-        <div class="point"><img src="img/p_3q.jpg" alt="SLIT three-quarter view showing the open corner" loading="lazy"><span class="mono">02 / Rim</span><h3 class="display">Open corner</h3><p>렌즈 바깥 모서리의 테를 끊어 낸 열린 구조. 브랜드 심볼의 틈을 프레임 위에 옮겼습니다.</p></div>
-        <div class="point"><img src="img/p_side.jpg" alt="SLIT side view showing the ring cut-out on the temple" loading="lazy"><span class="mono">03 / Temple</span><h3 class="display">Ring cut-out</h3><p>납작하고 넓은 메탈 템플에 링 모양 컷아웃 하나만 남겨, 옆모습에서도 브랜드가 읽힙니다.</p></div>
+  <div class="dtl" aria-label="No.05 Slit 상세 설명">
+    <section class="dtl-hero">
+      <div class="dtl-col">
+        <div class="dtl-media"><img src="img/c00.jpg?v=2" alt="Model 01 wearing NO.05 SLIT, close-up" loading="lazy"></div>
+        <div class="dtl-hero-cap dtl-pad">
+          <div class="dtl-hero-name"><span class="mono">No.05</span><h2 class="display dtl-name">Slit</h2></div>
+          <span class="mono">HOLLOW HOUR — 2026</span>
+        </div>
       </div>
-    </div>
-  </section>
-  <section class="band">
-    <div class="wrap">
-      <div class="head"><h2 class="display">Styling</h2><p>Model 01 / 착용 컬러 Chrome Silver</p></div>
-      <div class="pdp-styling">
-        <img src="img/c02.jpg" alt="Model touching the temple of SLIT" loading="lazy">
-        <img src="img/c14.jpg" alt="Model side profile wearing SLIT" loading="lazy">
-        <img src="img/c13.jpg" alt="Model three-quarter view wearing SLIT" loading="lazy">
-        <img src="img/c03.jpg" alt="Model seated wearing SLIT" loading="lazy">
+    </section>
+    <section class="dtl-intro dtl-pad">
+      <h2 class="display">A strange object<br>in an ordinary hour</h2>
+      <p class="dtl-rise">평범한 시간에 불시착한 낯선 오브제.<br>SLIT는 가늘게 열린 틈 하나로 얼굴 위의 시선을 바꿉니다.<br>쓰는 순간, 일상이 조금 이상해집니다.</p>
+    </section>
+    <section class="dtl-bone dtl-front">
+      <div class="dtl-col">
+        <div class="dtl-front-head dtl-rise"><span class="mono">No.05 Slit</span><span class="mono dtl-sub">Chrome Silver / Smoke Grey</span></div>
+        <div class="dtl-media"><img src="img/p_fold.jpg" alt="No.05 Slit front view" loading="lazy"></div>
       </div>
-      <a class="btn pdp-next" href="#echo">Next — No.06 Echo →</a>
-    </div>
-  </section>
+    </section>
+    <section class="dtl-bone dtl-points">
+      <div class="dtl-col">
+        <div class="dtl-pad"><div class="dtl-sec-head dtl-rise"><span class="mono">Design point</span><p>브랜드 심볼, 틈이 있는 링에서 출발한 세 가지 디테일</p></div></div>
+        <div class="dtl-point">
+          <div class="dtl-media"><img src="img/p_lens.jpg" alt="SLIT close-up of the almond lens and open corner" loading="lazy"></div>
+          <div class="dtl-pad dtl-point-row dtl-rise">
+            <span class="mono dtl-num">01</span>
+            <div><h3 class="display">Asymmetric almond</h3><p>바깥쪽으로 길게 빠지는 비대칭 아몬드 렌즈가 눈매를 길고 날렵하게 이어 줍니다.</p></div>
+          </div>
+        </div>
+        <div class="dtl-point">
+          <div class="dtl-media"><img src="img/p_3q.jpg" alt="SLIT three-quarter view showing the open corner" loading="lazy"></div>
+          <div class="dtl-pad dtl-point-row dtl-rise">
+            <span class="mono dtl-num">02</span>
+            <div><h3 class="display">Open corner</h3><p>렌즈 바깥 모서리의 테를 끊어 낸 열린 구조. 브랜드 심볼의 틈을 프레임 위에 옮겼습니다.</p></div>
+          </div>
+        </div>
+        <div class="dtl-point">
+          <div class="dtl-media"><img src="img/p_side.jpg" alt="SLIT side view showing the ring cut-out on the temple" loading="lazy"></div>
+          <div class="dtl-pad dtl-point-row dtl-rise">
+            <span class="mono dtl-num">03</span>
+            <div><h3 class="display">Ring cut-out</h3><p>납작하고 넓은 메탈 템플에 링 모양 컷아웃 하나만 남겨, 옆모습에서도 브랜드가 읽힙니다.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="dtl-styling">
+      <div class="dtl-col">
+        <div class="dtl-pad dtl-sec-head dtl-rise"><span class="mono">Styling</span><p>Model 01 / 착용 컬러 Chrome Silver</p></div>
+        <div class="dtl-grid">
+          <div class="dtl-media"><img src="img/c02.jpg?v=2" alt="Model touching the temple of SLIT" loading="lazy"></div>
+          <div class="dtl-media"><img src="img/c14.jpg?v=2" alt="Model side profile wearing SLIT" loading="lazy"></div>
+          <div class="dtl-media"><img src="img/c13.jpg?v=2" alt="Model three-quarter view wearing SLIT" loading="lazy"></div>
+          <div class="dtl-media"><img src="img/c03.jpg?v=2" alt="Model seated wearing SLIT" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+    <section class="dtl-bone dtl-info">
+      <div class="dtl-col dtl-pad">
+        <span class="mono dtl-rise">Information</span>
+        <div class="dtl-table dtl-rise">
+            <div class="dtl-row"><span>모델명</span><span>NO.05 SLIT</span></div>
+            <div class="dtl-row"><span>컬러</span><span>Chrome Silver / Smoke Grey</span></div>
+            <div class="dtl-row"><span>프레임</span><span>아몬드 메탈, 오픈 코너</span></div>
+            <div class="dtl-row"><span>렌즈</span><span>스모크 그레이 렌즈 / UV 99.9% 차단 렌즈</span></div>
+            <div class="dtl-row"><span>사이즈</span><span>렌즈 너비 : 56.6mm<br>브릿지 : 19mm<br>프레임 프론트 : 137.5mm<br>템플 길이 : 127.7mm<br>렌즈 높이 : 32.7mm</span></div>
+            <div class="dtl-row"><span>구성품</span><span>소프트 케이스, 클리너</span></div>
+            <div class="dtl-row"><span>가격</span><span>270,000원</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="dtl-end">
+      <div class="dtl-col">
+        <div class="dtl-media"><img src="img/c16.jpg?v=2" alt="Model 01 standing under the ring sculpture" loading="lazy"></div>
+        <div class="dtl-sign"><span class="wm" role="img" aria-label="HOLLOW HOUR"><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>L</span><span>L</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>W</span><span class="sp"></span><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="238 32.2" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="5.5" fill="currentColor"></circle></svg><span>U</span><span>R</span></span><span class="dtl-ko">할로우 아워</span></div>
+        <div class="dtl-next"><a class="btn" href="#echo">Next — No.06 Echo →</a></div>
+      </div>
+    </section>
+  </div>
 </article>
 
 <article class="pdp" id="pdp-echo" hidden aria-label="NO.06 ECHO product detail">
   <div class="wrap pdp-back"><a class="mono" href="#collection">← Collection</a></div>
   <div class="wrap pdp-top">
-    <img class="pdp-hero" src="img/c15.jpg" alt="Model 02 wearing NO.06 ECHO, close-up">
+    <img class="pdp-hero pdp-hero-product" src="img/e_3q.jpg?v=2" alt="NO.06 ECHO three-quarter view">
     <div class="pdp-info">
       <p class="mono pdp-eyebrow">No.06 — Daily</p>
       <h1 class="display pdp-name">Echo</h1>
@@ -395,28 +539,86 @@ footer a:hover { color: var(--bone); }
       <a class="pdp-buy mono" href="#echo" data-link="echo_notify">Notify Me</a>
     </div>
   </div>
-  <section class="pdp-band">
-    <div class="wrap">
-      <div class="head"><h2 class="display">Design point</h2><p>클래식한 라운드 형태에 HOLLOW HOUR의 디테일을 더했습니다.</p></div>
-      <div class="points">
-        <div class="point"><img src="img/e_front.jpg" alt="ECHO front view showing the round lenses and double bridge" loading="lazy"><span class="mono">01 / Bridge</span><h3 class="display">Double bridge</h3><p>렌즈 위를 곧게 가로지르는 더블브릿지 바가 둥근 형태에 단단한 수평선을 더합니다.</p></div>
-        <div class="point"><img src="img/e_3q.jpg" alt="ECHO three-quarter view" loading="lazy"><span class="mono">02 / Frame</span><h3 class="display">Brushed round</h3><p>SLIT와 같은 브러시드 크롬 마감. 빛을 반사하지 않고 은은하게 머금는 표면입니다.</p></div>
-        <div class="point"><img src="img/e_side.jpg" alt="ECHO side view showing the ring cut-out on the temple" loading="lazy"><span class="mono">03 / Temple</span><h3 class="display">Ring cut-out</h3><p>힌지 옆의 작은 링 컷아웃. SLIT와 한 컬렉션임을 알려 주는 공통 디테일입니다.</p></div>
+  <div class="dtl" aria-label="No.06 Echo 상세 설명">
+    <section class="dtl-hero">
+      <div class="dtl-col">
+        <div class="dtl-media"><img src="img/c15.jpg?v=3" alt="Model 02 wearing NO.06 ECHO, close-up" loading="lazy"></div>
+        <div class="dtl-hero-cap dtl-pad">
+          <div class="dtl-hero-name"><span class="mono">No.06</span><h2 class="display dtl-name">Echo</h2></div>
+          <span class="mono">HOLLOW HOUR — 2026</span>
+        </div>
       </div>
-    </div>
-  </section>
-  <section class="band">
-    <div class="wrap">
-      <div class="head"><h2 class="display">Styling</h2><p>Model 02 / 착용 컬러 Chrome Silver</p></div>
-      <div class="pdp-styling">
-        <img src="img/c12.jpg" alt="Model 02 touching the temple of ECHO" loading="lazy">
-        <img src="img/c09.jpg" alt="Model 02 three-quarter view wearing ECHO" loading="lazy">
-        <img src="img/c06.jpg" alt="Model 02 seated wearing ECHO" loading="lazy">
-        <img src="img/c04.jpg" alt="Model 02 standing under the ring sculpture" loading="lazy">
+    </section>
+    <section class="dtl-intro dtl-pad">
+      <h2 class="display">A strange object<br>in an ordinary hour</h2>
+      <p class="dtl-rise">익숙한 라운드 위에 남긴 낯선 울림.<br>ECHO는 SLIT와 같은 브러시드 크롬과 링 컷아웃을 나눠 가진,<br>매일 쓰는 데일리 라인입니다.</p>
+    </section>
+    <section class="dtl-bone dtl-front">
+      <div class="dtl-col">
+        <div class="dtl-front-head dtl-rise"><span class="mono">No.06 Echo</span><span class="mono dtl-sub">Chrome Silver / Smoke Grey</span></div>
+        <div class="dtl-media"><img src="img/e_front.jpg?v=2" alt="No.06 Echo front view" loading="lazy"></div>
       </div>
-      <a class="btn pdp-next" href="#slit">Next — No.05 Slit →</a>
-    </div>
-  </section>
+    </section>
+    <section class="dtl-bone dtl-points">
+      <div class="dtl-col">
+        <div class="dtl-pad"><div class="dtl-sec-head dtl-rise"><span class="mono">Design point</span><p>클래식한 라운드 형태에 HOLLOW HOUR의 디테일을 더한 세 가지 포인트</p></div></div>
+        <div class="dtl-point">
+          <div class="dtl-media"><img src="img/e_fold.jpg?v=2" alt="ECHO folded, showing the double bridge from above" loading="lazy"></div>
+          <div class="dtl-pad dtl-point-row dtl-rise">
+            <span class="mono dtl-num">01</span>
+            <div><h3 class="display">Double bridge</h3><p>렌즈 위를 곧게 가로지르는 더블브릿지 바가 둥근 형태에 단단한 수평선을 더합니다.</p></div>
+          </div>
+        </div>
+        <div class="dtl-point">
+          <div class="dtl-media"><img src="img/e_3q.jpg?v=2" alt="ECHO three-quarter view" loading="lazy"></div>
+          <div class="dtl-pad dtl-point-row dtl-rise">
+            <span class="mono dtl-num">02</span>
+            <div><h3 class="display">Brushed round</h3><p>SLIT와 같은 브러시드 크롬 마감. 빛을 반사하지 않고 은은하게 머금는 표면입니다.</p></div>
+          </div>
+        </div>
+        <div class="dtl-point">
+          <div class="dtl-media"><img src="img/e_side.jpg?v=2" alt="ECHO side view showing the ring cut-out on the temple" loading="lazy"></div>
+          <div class="dtl-pad dtl-point-row dtl-rise">
+            <span class="mono dtl-num">03</span>
+            <div><h3 class="display">Ring cut-out</h3><p>힌지 옆의 작은 링 컷아웃. SLIT와 한 컬렉션임을 알려 주는 공통 디테일입니다.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="dtl-styling">
+      <div class="dtl-col">
+        <div class="dtl-pad dtl-sec-head dtl-rise"><span class="mono">Styling</span><p>Model 02 / 착용 컬러 Chrome Silver</p></div>
+        <div class="dtl-grid">
+          <div class="dtl-media"><img src="img/c12.jpg?v=2" alt="Model 02 touching the temple of ECHO" loading="lazy"></div>
+          <div class="dtl-media"><img src="img/c09.jpg?v=2" alt="Model 02 three-quarter view wearing ECHO" loading="lazy"></div>
+          <div class="dtl-media"><img src="img/c06.jpg" alt="Model 02 seated wearing ECHO" loading="lazy"></div>
+          <div class="dtl-media"><img src="img/c05.jpg?v=2" alt="Model 01 and model 02 facing each other in profile" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+    <section class="dtl-bone dtl-info">
+      <div class="dtl-col dtl-pad">
+        <span class="mono dtl-rise">Information</span>
+        <div class="dtl-table dtl-rise">
+            <div class="dtl-row"><span>모델명</span><span>NO.06 ECHO</span></div>
+            <div class="dtl-row"><span>컬러</span><span>Chrome Silver / Smoke Grey</span></div>
+            <div class="dtl-row"><span>프레임</span><span>라운드 메탈, 더블브릿지</span></div>
+            <div class="dtl-row"><span>렌즈</span><span>스모크 그레이 렌즈 / UV 99.9% 차단 렌즈</span></div>
+            <div class="dtl-row"><span>사이즈</span><span>렌즈 너비 : 52.7mm<br>브릿지 : 20mm<br>프레임 프론트 : 141.3mm<br>템플 길이 : 150.3mm<br>렌즈 높이 : 31mm</span></div>
+            <div class="dtl-row"><span>디테일</span><span>템플 링 컷아웃</span></div>
+            <div class="dtl-row"><span>구성품</span><span>소프트 케이스, 클리너</span></div>
+            <div class="dtl-row"><span>가격</span><span>Coming soon</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="dtl-end">
+      <div class="dtl-col">
+        <div class="dtl-media"><img src="img/c04.jpg?v=2" alt="Model 02 standing under the ring sculpture" loading="lazy"></div>
+        <div class="dtl-sign"><span class="wm" role="img" aria-label="HOLLOW HOUR"><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>L</span><span>L</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>W</span><span class="sp"></span><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="238 32.2" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="5.5" fill="currentColor"></circle></svg><span>U</span><span>R</span></span><span class="dtl-ko">할로우 아워</span></div>
+        <div class="dtl-next"><a class="btn" href="#slit">Next — No.05 Slit →</a></div>
+      </div>
+    </section>
+  </div>
 </article>
 </main>
 
@@ -437,18 +639,18 @@ footer a:hover { color: var(--bone); }
       <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>03 / 17</span><span>Type &amp; Color</span></figcaption><img src="pf/p03.jpg" alt="Portfolio page 3: Type &amp; Color" loading="lazy"></figure>
       <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>04 / 17</span><span>Casting</span></figcaption><img src="pf/p04.jpg" alt="Portfolio page 4: Casting" loading="lazy"></figure>
       <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>05 / 17</span><span>Product</span></figcaption><img src="pf/p05.jpg" alt="Portfolio page 5: Product" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>06 / 17</span><span>Campaign — Model 01 × Slit</span></figcaption><img src="pf/p06.jpg" alt="Portfolio page 6: Campaign — Model 01 × Slit" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>07 / 17</span><span>Campaign — Model 02 × Echo</span></figcaption><img src="pf/p07.jpg" alt="Portfolio page 7: Campaign — Model 02 × Echo" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>08 / 17</span><span>Campaign — Pair</span></figcaption><img src="pf/p08.jpg" alt="Portfolio page 8: Campaign — Pair" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:860px"><figcaption class="mono"><span>09 / 17</span><span>Detail Page — No.05 Slit</span></figcaption><img src="pf/p09.jpg" alt="Portfolio page 9: Detail Page — No.05 Slit" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:860px"><figcaption class="mono"><span>10 / 17</span><span>Detail Page — No.06 Echo</span></figcaption><img src="pf/p10.jpg" alt="Portfolio page 10: Detail Page — No.06 Echo" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:1600px"><figcaption class="mono"><span>11 / 17</span><span>Main Banner — PC</span></figcaption><img src="pf/p11.jpg" alt="Portfolio page 11: Main Banner — PC" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:750px"><figcaption class="mono"><span>12 / 17</span><span>Main Banner — Mobile</span></figcaption><img src="pf/p12.jpg" alt="Portfolio page 12: Main Banner — Mobile" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>06 / 17</span><span>Campaign — Model 01 × Slit</span></figcaption><img src="pf/p06.jpg?v=2" alt="Portfolio page 6: Campaign — Model 01 × Slit" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>07 / 17</span><span>Campaign — Model 02 × Echo</span></figcaption><img src="pf/p07.jpg?v=3" alt="Portfolio page 7: Campaign — Model 02 × Echo" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1440px"><figcaption class="mono"><span>08 / 17</span><span>Campaign — Pair</span></figcaption><img src="pf/p08.jpg?v=3" alt="Portfolio page 8: Campaign — Pair" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:860px"><figcaption class="mono"><span>09 / 17</span><span>Detail Page — No.05 Slit</span></figcaption><img src="pf/p09.jpg?v=2" alt="Portfolio page 9: Detail Page — No.05 Slit" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:860px"><figcaption class="mono"><span>10 / 17</span><span>Detail Page — No.06 Echo</span></figcaption><img src="pf/p10.jpg?v=3" alt="Portfolio page 10: Detail Page — No.06 Echo" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1600px"><figcaption class="mono"><span>11 / 17</span><span>Main Banner — PC</span></figcaption><img src="pf/p11.jpg?v=2" alt="Portfolio page 11: Main Banner — PC" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:750px"><figcaption class="mono"><span>12 / 17</span><span>Main Banner — Mobile</span></figcaption><img src="pf/p12.jpg?v=2" alt="Portfolio page 12: Main Banner — Mobile" loading="lazy"></figure>
       <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>13 / 17</span><span>SNS 01 — Teaser</span></figcaption><img src="pf/p13.jpg" alt="Portfolio page 13: SNS 01 — Teaser" loading="lazy"></figure>
       <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>14 / 17</span><span>SNS 02 — Detail</span></figcaption><img src="pf/p14.jpg" alt="Portfolio page 14: SNS 02 — Detail" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>15 / 17</span><span>SNS 03 — Model</span></figcaption><img src="pf/p15.jpg" alt="Portfolio page 15: SNS 03 — Model" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>16 / 17</span><span>SNS 04 — Pair</span></figcaption><img src="pf/p16.jpg" alt="Portfolio page 16: SNS 04 — Pair" loading="lazy"></figure>
-      <figure class="pf-page" style="max-width:1600px"><figcaption class="mono"><span>17 / 17</span><span>AI Workflow</span></figcaption><img src="pf/p17.jpg" alt="Portfolio page 17: AI Workflow" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>15 / 17</span><span>SNS 03 — Model</span></figcaption><img src="pf/p15.jpg?v=2" alt="Portfolio page 15: SNS 03 — Model" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1080px"><figcaption class="mono"><span>16 / 17</span><span>SNS 04 — Pair</span></figcaption><img src="pf/p16.jpg?v=2" alt="Portfolio page 16: SNS 04 — Pair" loading="lazy"></figure>
+      <figure class="pf-page" style="max-width:1600px"><figcaption class="mono"><span>17 / 17</span><span>AI Workflow</span></figcaption><img src="pf/p17.jpg?v=2" alt="Portfolio page 17: AI Workflow" loading="lazy"></figure>
       </div>
     </div>
   </div>
@@ -464,7 +666,7 @@ footer a:hover { color: var(--bone); }
       <p class="fine"><span class="wm wm-inline" role="img" aria-label="HOLLOW HOUR"><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>L</span><span>L</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10"></circle></svg><span>W</span><span class="sp"></span><span>H</span><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="43" fill="none" stroke="currentColor" stroke-width="10" stroke-dasharray="238 32.2" transform="rotate(-50 48 48)"></circle><circle cx="48" cy="48" r="5.5" fill="currentColor"></circle></svg><span>U</span><span>R</span></span>는 AI 브랜딩 포트폴리오를 위해 만든 가상 브랜드입니다. 모델, 제품, 캠페인 이미지와 영상은 모두 AI로 생성했습니다.<br>Concept &amp; Design — 이상아</p>
     </div>
     <div>
-      <h4 class="mono">Shop</h4>
+      <h3 class="mono">Shop</h3>
       <ul>
         <li><a href="#slit">No.05 Slit</a></li>
         <li><a href="#echo">No.06 Echo</a></li>
@@ -472,7 +674,7 @@ footer a:hover { color: var(--bone); }
       </ul>
     </div>
     <div>
-      <h4 class="mono">Links</h4>
+      <h3 class="mono">Links</h3>
       <ul>
         <li><button type="button" class="link-reset" data-open-guide>Brand Guide</button></li>
         <li data-wrap="instagram"><a href="#" data-link="instagram">Instagram</a></li>
@@ -494,6 +696,18 @@ document.querySelectorAll('[data-link]').forEach(function (a) {
   var url = LINKS[a.dataset.link];
   if (url) { a.href = url; if (/^https?:/.test(url)) { a.target = '_blank'; a.rel = 'noopener'; } }
 });
+/* 판매 링크가 없으면 Buy 버튼을 '콘셉트 전용' 안내로 바꿉니다 (눌러도 반응 없는 버튼 방지) */
+document.querySelectorAll('.pdp-buy').forEach(function (a) {
+  if (LINKS[a.dataset.link]) return;
+  a.removeAttribute('href');
+  a.setAttribute('role', 'note');
+  a.classList.add('is-concept');
+  a.textContent = 'Concept only — Not for sale';
+  var note = document.createElement('p');
+  note.className = 'concept-note';
+  note.textContent = '포트폴리오용 가상 브랜드로, 실제 판매하지 않습니다.';
+  a.insertAdjacentElement('afterend', note);
+});
 document.querySelectorAll('[data-wrap]').forEach(function (li) {
   if (!LINKS[li.dataset.wrap]) li.hidden = true;
 });
@@ -504,13 +718,17 @@ document.querySelectorAll('footer ul').forEach(function (ul) {
 /* 상세페이지 전환: #slit, #echo 주소일 때 해당 상세페이지만 보여 줍니다. */
 var home = document.getElementById('home');
 var pdps = { slit: document.getElementById('pdp-slit'), echo: document.getElementById('pdp-echo') };
-function route() {
+function route(e) {
   var key = location.hash.replace('#', '');
   var pdp = pdps[key];
   home.hidden = !!pdp;
   Object.keys(pdps).forEach(function (k) { pdps[k].hidden = k !== key; });
+  var NAMES = { slit: 'No.05 Slit', echo: 'No.06 Echo' };
+  document.title = pdp ? NAMES[key] + ' — HOLLOW HOUR' : 'HOLLOW HOUR';
   if (pdp) {
     window.scrollTo(0, 0);
+    /* 상세페이지로 바뀌면 상품명으로 포커스를 옮겨 화면 낭독기에도 전환을 알립니다 */
+    if (e) { var h = pdp.querySelector('.pdp-name'); h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
   } else if (key) {
     var target = document.getElementById(key);
     if (target) target.scrollIntoView();
@@ -535,9 +753,343 @@ function closeGuide() {
 }
 document.querySelectorAll('[data-open-guide]').forEach(function (b) { b.addEventListener('click', openGuide); });
 document.querySelectorAll('[data-close-guide]').forEach(function (b) { b.addEventListener('click', closeGuide); });
-document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !guide.hidden) closeGuide(); });
+document.addEventListener('keydown', function (e) {
+  if (guide.hidden) return;
+  if (e.key === 'Escape') { closeGuide(); return; }
+  /* 팝업이 열려 있는 동안 Tab 이동은 팝업 안에서만 */
+  if (e.key === 'Tab') {
+    var f = guide.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !guide.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (document.activeElement === last || !guide.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+  }
+});
+
+/* 메인 캠페인 영상: 일시정지 버튼, 동작 줄이기 설정이면 정지 화면으로 시작 */
+(function () {
+  var film = document.querySelector('.mv-film'), btn = document.querySelector('.mv-toggle');
+  if (!film || !btn) return;
+  var PAUSE = '<svg viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" fill="currentColor"/></svg>';
+  var PLAY = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9.5-5.5z" fill="currentColor"/></svg>';
+  function sync() {
+    var paused = film.paused;
+    btn.innerHTML = paused ? PLAY : PAUSE;
+    btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    var label = paused ? '캠페인 영상 재생' : '캠페인 영상 일시정지';
+    btn.setAttribute('aria-label', label); btn.title = label;
+  }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { film.removeAttribute('autoplay'); film.pause(); }
+  btn.addEventListener('click', function () { if (film.paused) film.play().catch(function () {}); else film.pause(); });
+  film.addEventListener('play', sync); film.addEventListener('pause', sync);
+  sync();
+})();
 route();
 </script>
+
+<style>
+/* ===== Motion layer: slow, gallery-paced reveals. Everything below is skipped under reduced motion. ===== */
+html.intro-lock body { overflow: hidden; }
+.intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--void); color: var(--bone); padding: env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(16px, env(safe-area-inset-left, 0px)); clip-path: inset(0 0 0 0); transition: clip-path 1s var(--ease); }
+.intro.out { clip-path: inset(0 0 100% 0); }
+.intro-inner { display: flex; flex-direction: column; align-items: center; gap: 28px; transition: transform .9s var(--ease), opacity .5s ease; }
+.intro.out .intro-inner { transform: translateY(-48px); opacity: 0; }
+.intro-sym { width: clamp(72px, 10vw, 120px); height: auto; overflow: visible; }
+.intro-sym .arc { fill: none; stroke: currentColor; stroke-width: 9; stroke-dasharray: 0 251.33; transition: stroke-dasharray 1.3s var(--ease); }
+.intro.go .intro-sym .arc { stroke-dasharray: 222 29.33; }
+.intro-sym .dot { transform-box: view-box; transform-origin: 50% 50%; transform: scale(0); transition: transform .7s var(--ease) .8s; }
+.intro.go .intro-sym .dot { transform: scale(1); }
+.intro-wm { font-size: clamp(26px, 5vw, 64px); overflow: hidden; padding-block: .1em; }
+.intro-wm > * { transform: translateY(120%); transition: transform 1s var(--ease); transition-delay: calc(.75s + var(--i, 0) * 45ms); }
+.intro.go .intro-wm > * { transform: none; }
+.intro-meta { display: flex; justify-content: space-between; width: min(320px, 70vw); color: var(--concrete); font-variant-numeric: tabular-nums; }
+.intro-bar { width: min(320px, 70vw); height: 1px; background: var(--line-dark); }
+.intro-bar i { display: block; height: 100%; background: var(--chrome); transform-origin: left; transform: scaleX(0); }
+
+.scroll-progress { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top, 0px); height: 2px; z-index: 30; background: var(--acid); transform-origin: left; transform: scaleX(0); pointer-events: none; }
+
+.gallery figure { overflow: hidden; }
+
+/* main visual: panels slide up in depth after the intro */
+.motion .mv-panels { perspective: 1400px; }
+.motion .mv-side, .motion .mv-film { will-change: transform; }
+.mv-play .mv-panels > * { animation: mvIn 1.6s var(--ease) backwards; }
+.mv-play .mv-panels > :nth-child(1) { animation-delay: .12s; }
+.mv-play .mv-panels > :nth-child(3) { animation-delay: .24s; }
+@keyframes mvIn { from { transform: translateY(14%) rotateX(9deg) scale(1.04); clip-path: inset(100% 0 0 0); } to { transform: none; clip-path: inset(0); } }
+.motion .mv-wm { overflow: hidden; padding-block: .1em; }
+.mv-play .mv-wm > * { animation: wmUp 1.1s var(--ease) backwards; animation-delay: calc(.45s + var(--i, 0) * 45ms); }
+@keyframes wmUp { from { transform: translateY(120%); } }
+.mv-play .mv-copy, .mv-play .mv-scroll { animation: fadeUp 1s var(--ease) 1s backwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } }
+
+/* headline words rise from a mask */
+.motion .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .12em; margin-bottom: -.12em; }
+.motion .wi { display: inline-block; transition: transform 1.15s var(--ease); transition-delay: calc(var(--d, 0ms) + var(--i, 0) * 55ms); }
+.motion .m-pend .wi { transform: translateY(115%); }
+
+/* images uncover upward, the photo settles from a slight zoom */
+.motion .m-clip { transition: clip-path 1.3s var(--ease); transition-delay: var(--d, 0ms); }
+.motion .m-clip.m-pend { clip-path: inset(100% 0 0 0); }
+.motion .m-clip img { transform: translate3d(0, var(--py, 0px), 0) scale(var(--sc, 1)); transition: transform 1.6s var(--ease); transition-delay: var(--d, 0ms); }
+.motion .gallery .m-clip img { --sc: 1.12; transition: transform .9s var(--ease); }
+.motion .m-clip.m-pend img { --sc: 1.2; }
+.motion .product:hover .shot img { transform: scale(1.04); }
+
+.motion .m-rise { transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0ms); }
+.motion .m-rise.m-pend { opacity: 0; transform: translateY(24px); }
+
+.motion .m-letters { overflow: hidden; padding-block: .1em; }
+.motion .m-letters > * { transition: transform 1s var(--ease); transition-delay: calc(var(--d, 0ms) + var(--i, 0) * 45ms); }
+.motion .m-letters.m-pend > * { transform: translateY(120%); }
+
+.motion .m-draw circle:first-child { transition: stroke-dasharray 1.8s var(--ease); transition-delay: var(--d, 0ms); }
+.motion .m-draw.m-pend circle:first-child { stroke-dasharray: 0 251.33; }
+.motion .m-draw circle:last-child { transform-box: view-box; transform-origin: 50% 50%; transition: transform .8s var(--ease); transition-delay: calc(var(--d, 0ms) + 1s); }
+.motion .m-draw.m-pend circle:last-child { transform: scale(0); }
+
+/* underline retracts and redraws on hover, arrows shift */
+.motion .btn { border-bottom-color: transparent; background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat; }
+.motion .btn:hover { animation: lineRedraw .8s var(--ease); }
+@keyframes lineRedraw {
+  0% { background-size: 100% 1px; background-position: right bottom; }
+  45% { background-size: 0% 1px; background-position: right bottom; }
+  46% { background-size: 0% 1px; background-position: left bottom; }
+  100% { background-size: 100% 1px; background-position: left bottom; }
+}
+.arr { display: inline-block; transition: transform .5s var(--ease); }
+.btn:hover .arr { transform: translateX(6px); }
+.motion .nav a:not(.shop) { background: linear-gradient(currentColor, currentColor) left bottom / 0% 1px no-repeat; transition: background-size .5s var(--ease), color .3s ease; }
+.motion .nav a:not(.shop):hover { background-size: 100% 1px; }
+
+/* buy button: chrome fill sweeps in, a hairline breathes outward */
+.motion .pdp-buy { position: relative; background: linear-gradient(var(--chrome), var(--chrome)) left / 0% 100% no-repeat, var(--bone); transition: background-size .7s var(--ease), opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: 0s, var(--d, 0ms), var(--d, 0ms); }
+.motion .pdp-buy:hover { background-size: 100% 100%; }
+.motion .pdp-buy::after { content: ""; position: absolute; inset: 0; border: 1px solid var(--chrome); pointer-events: none; animation: buyPulse 3.4s var(--ease) 3; }
+@keyframes buyPulse { 0% { opacity: .8; transform: scale(1); } 70%, 100% { opacity: 0; transform: scaleX(1.04) scaleY(1.4); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none !important; }
+}
+</style>
+
+<script>
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var doc = document.documentElement;
+  doc.classList.add('motion');
+  var homeEl = document.getElementById('home');
+  var mv = document.querySelector('.main-visual');
+  var sides = mv.querySelectorAll('.mv-side');
+  var film = mv.querySelector('.mv-film');
+  var ov = mv.querySelector('.mv-overlay');
+  var bar = document.querySelector('.scroll-progress');
+  var galleryFigs = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+
+  function indexChildren(el) { Array.prototype.forEach.call(el.children, function (c, i) { c.style.setProperty('--i', i); }); }
+
+  /* split headings into masked words */
+  function splitWords(el) {
+    var frag = document.createDocumentFragment();
+    Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+      if (n.nodeType === 1 && n.classList.contains('ln')) { splitWords(n); frag.appendChild(n); return; }
+      if (n.nodeType !== 3) { frag.appendChild(n); return; }
+      n.textContent.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+        var w = document.createElement('span'); w.className = 'w';
+        var i = document.createElement('span'); i.className = 'wi'; i.textContent = part;
+        w.appendChild(i); frag.appendChild(w);
+      });
+    });
+    el.textContent = ''; el.appendChild(frag);
+    el.querySelectorAll('.wi').forEach(function (s, k) { s.style.setProperty('--i', k); });
+  }
+
+  /* arrows inside buttons */
+  document.querySelectorAll('.btn').forEach(function (b) {
+    Array.prototype.slice.call(b.childNodes).forEach(function (n) {
+      if (n.nodeType === 3 && n.textContent.indexOf('→') > -1) {
+        var parts = n.textContent.split('→');
+        var s = document.createElement('span'); s.className = 'arr'; s.textContent = '→';
+        b.insertBefore(document.createTextNode(parts[0]), n);
+        b.insertBefore(s, n);
+        n.textContent = parts[1];
+      }
+    });
+  });
+
+  /* text effects */
+  var CH = 'HOLWUR0123456789/—·';
+  function scramble(el) {
+    var final = el.dataset.final || (el.dataset.final = el.textContent);
+    el.setAttribute('aria-label', final);
+    var t0 = performance.now(), dur = Math.min(900, 320 + final.length * 22);
+    (function f(t) {
+      var p = Math.min(1, (t - t0) / dur), n = Math.floor(p * final.length), out = final.slice(0, n);
+      for (var i = n; i < final.length; i++) out += final[i] === ' ' ? ' ' : CH[(Math.random() * CH.length) | 0];
+      el.textContent = p < 1 ? out : final;
+      if (p < 1) requestAnimationFrame(f);
+    })(t0);
+  }
+  function countUp(el) {
+    var final = el.dataset.final || (el.dataset.final = el.textContent);
+    var m = final.match(/₩([\d,]+)/);
+    if (!m) { scramble(el); return; }
+    var target = +m[1].replace(/,/g, '');
+    el.setAttribute('aria-label', final);
+    var t0 = performance.now(), dur = 1100;
+    (function f(t) {
+      var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4);
+      el.textContent = p < 1 ? '₩' + (Math.round(target * e / 1000) * 1000).toLocaleString('ko-KR') : final;
+      if (p < 1) requestAnimationFrame(f);
+    })(t0);
+  }
+  document.querySelectorAll('.price, .pdp-price').forEach(function (el) { el.dataset.fx = 'count'; });
+  document.querySelectorAll('.pdp-eyebrow, .pdp-color, .hero .wrap > div > .mono').forEach(function (el) { el.dataset.fx = 'scramble'; });
+
+  /* register reveals */
+  var groups = [
+    ['words', 'h1.display, h2.display:not(.about-wm):not(.guide-title)'],
+    ['clip', '.product .shot, .point img, .gallery figure, .pdp-styling img, .pdp-hero, .film-frame, .dtl-media'],
+    ['letters', 'footer .brand .wm, .about-wm .wm, .dtl-sign .wm'],
+    ['draw', '.about .symbol'],
+    ['rise', '.head p, .hero .lede, .hero .cta, .hero .wrap > div > .mono, .product .row, .product .meta, .product .specs, .product > .btn, .point .mono, .point h3, .point p, .about .wrap > div > p, .palette, .pdp-info > :not(.pdp-name), .pdp-next, .pdp-back a, footer .fine, footer h4, footer ul, .dtl-rise, .dtl-hero-cap, .dtl-ko, .dtl-next'],
+    ['fx', '[data-fx]']
+  ];
+  var seen = new Set(), reg = [], vh = innerHeight, targets = new Map();
+  /* clipped elements report as invisible, so they are watched through their parent */
+  function targetOf(el) { return el.classList.contains('m-clip') ? el.parentElement : el; }
+  function watch(el) {
+    var t = targetOf(el);
+    if (!targets.has(t)) targets.set(t, []);
+    var list = targets.get(t);
+    if (list.indexOf(el) < 0) list.push(el);
+    io.observe(t);
+  }
+  var io = new IntersectionObserver(function (entries) {
+    var shown = [];
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      (targets.get(e.target) || []).forEach(function (el) { if (el.classList.contains('m-pend')) shown.push(el); });
+      targets.delete(e.target);
+    });
+    revealAll(shown);
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+  function revealAll(shown) {
+    shown.sort(function (a, b) { return (a.compareDocumentPosition(b) & 4) ? -1 : 1; });
+    shown.forEach(function (el, k) {
+      el.style.setProperty('--d', (k * 90) + 'ms');
+      el.classList.remove('m-pend');
+      if (el.dataset.fx === 'count') countUp(el);
+      else if (el.dataset.fx === 'scramble') setTimeout(function () { scramble(el); }, k * 90);
+      setTimeout(function () { el.style.removeProperty('--d'); }, 2200 + k * 90);
+    });
+  }
+  /* backup check: anything still hidden that is already on screen gets revealed */
+  setInterval(function () {
+    var h = innerHeight, due = [];
+    reg.forEach(function (el) {
+      if (!el.classList.contains('m-pend') || el.closest('[hidden]')) return;
+      var r = targetOf(el).getBoundingClientRect();
+      if (r.height && r.top < h * 0.95 && r.bottom > 0) due.push(el);
+    });
+    if (due.length) revealAll(due);
+  }, 300);
+
+  groups.forEach(function (g) {
+    document.querySelectorAll(g[1]).forEach(function (el) {
+      if (seen.has(el) || el.closest('.guide')) return;
+      seen.add(el);
+      var inPdp = !!el.closest('.pdp');
+      var below = el.getBoundingClientRect().top > vh * 0.92;
+      if (!inPdp && !below) return;
+      if (g[0] === 'words') splitWords(el);
+      if (g[0] === 'letters') indexChildren(el);
+      if (g[0] !== 'fx') el.classList.add('m-' + g[0]);
+      el.classList.add('m-pend');
+      reg.push(el);
+      watch(el);
+    });
+  });
+
+  /* replay a product page's reveals each time it opens */
+  addEventListener('hashchange', function () {
+    var pdp = document.getElementById('pdp-' + location.hash.slice(1));
+    if (!pdp || pdp.hidden) return;
+    reg.forEach(function (el) { if (pdp.contains(el)) { el.classList.add('m-pend'); watch(el); } });
+  });
+
+  /* intro sequence, then the main visual plays in */
+  var mvWm = mv.querySelector('.mv-wm');
+  indexChildren(mvWm);
+  function heroPlay() { mv.classList.add('mv-play'); scramble(mv.querySelector('.mv-eyebrow')); }
+  var intro = document.getElementById('introSeq');
+  if (intro) {
+    try { sessionStorage.setItem('hh-intro', '1'); } catch (e) {}
+    var wm = mvWm.cloneNode(true);
+    wm.className = 'wm intro-wm';
+    wm.removeAttribute('role'); wm.removeAttribute('aria-label');
+    indexChildren(wm);
+    intro.querySelector('.intro-wm-slot').appendChild(wm);
+    var cnt = intro.querySelector('.intro-count'), ib = intro.querySelector('.intro-bar i');
+    var t0 = performance.now(), done = false;
+    (function tick(t) {
+      var p = Math.min(1, (t - t0) / 1600), e = 1 - Math.pow(1 - p, 3);
+      cnt.textContent = String(Math.round(e * 100)).padStart(3, '0');
+      ib.style.transform = 'scaleX(' + e + ')';
+      if (p < 1 && !done) requestAnimationFrame(tick);
+    })(t0);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { intro.classList.add('go'); }); });
+    var finish = function () {
+      if (done) return; done = true;
+      intro.classList.add('out');
+      doc.classList.remove('intro-lock');
+      setTimeout(heroPlay, 200);
+      setTimeout(function () { intro.remove(); }, 1100);
+    };
+    setTimeout(finish, 2200);
+    ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (ev) { addEventListener(ev, finish, { once: true, passive: true }); });
+  } else {
+    heroPlay();
+  }
+
+  /* one frame loop for scroll-linked motion */
+  var lastY = scrollY, vel = 0, dir = 1;
+  function frame() {
+    var y = scrollY, dy = y - lastY; lastY = y;
+    vel += (dy - vel) * 0.15;
+    if (Math.abs(dy) > 0.5) dir = dy > 0 ? 1 : -1;
+    var max = doc.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
+
+    if (!homeEl.hidden) {
+      var h = innerHeight;
+      var r = mv.getBoundingClientRect();
+      if (r.bottom > 0) {
+        var p = Math.min(1, Math.max(0, -r.top / r.height));
+        sides[0].style.transform = 'translate3d(' + (-p * 38) + '%,0,0)';
+        sides[1].style.transform = 'translate3d(' + (p * 38) + '%,0,0)';
+        sides[0].style.opacity = sides[1].style.opacity = 1 - p * 0.7;
+        film.style.transform = 'scale(' + (1 + p * 0.14) + ')';
+        ov.style.transform = 'translate3d(0,' + (-p * 70) + 'px,0)';
+        ov.style.opacity = Math.max(0, 1 - p * 1.6);
+      }
+      galleryFigs.forEach(function (f) {
+        var fr = f.getBoundingClientRect();
+        if (fr.bottom < 0 || fr.top > h) return;
+        var c = (fr.top + fr.height / 2 - h / 2) / h;
+        f.firstElementChild.style.setProperty('--py', (-c * 36).toFixed(1) + 'px');
+      });
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+
 
 </body>
 </html>
